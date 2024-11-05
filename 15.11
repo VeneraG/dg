@@ -1,0 +1,73 @@
+1.
+///views.py
+def main(request):
+    return HttpResponse('main')
+///urls.py
+path('', views.main,name="main"),
+
+///views.py
+def news(request):
+    return HttpResponse('News')
+///urls.py
+path('news/', views.news,name="news"),
+
+///views.py
+def about(request):
+    return HttpResponse('about_company')
+///urls.py
+path('about_company/', views.about,name="about"),
+
+///views.py
+def management(request):
+    return HttpResponse('management')
+///urls.py
+path('management/', views.management,name="management"),
+
+///views.py
+def number(request):
+    return HttpResponse('number')
+///urls.py
+path('number/', views.number,name="number"),
+
+
+2.
+///views.py
+def categories(request, catid):
+    return HttpResponse(f"<h1>Статьи по категориям</h1>{catid}</p>")
+///urls.py
+path('news/<str:catid>/', views.categories,name="categories"), ///остальным разделам прописываем тот же код
+
+
+3.
+///views.py
+def history(request):
+    return HttpResponse(
+        f"<h1> History of my city</h1> <p>Уфа́ – столица Республики Башкортостан. Город имеет богатую и уникальную "
+        f"историю, корнями уходящую в глубь веков. На месте современной Уфы в древние времена существовал большой "
+        f"город. После вхождения в 1557 году европейской части Башкортостана в состав Московского царства башкиры "
+        f"обратились к Ивану IV с челобитьем о строительстве на их земле города.</p>")
+def people(request):
+    return HttpResponse("<h1> people of my city</h1>")
+def photos(request):
+    return HttpResponse("<h1> Photos of my city</h1>")
+///urls.py
+ path('history/', views.history,name="history"),
+ path('history/people/', views.people,name="people"),
+ path('history/photos/', views.photos,name="photos"),
+
+4.
+///views.py
+def main(request):
+    st2 = ''
+
+    st = 'http://127.0.0.1:8000/'
+    l = ['news/', 'about_company/', 'management/', 'number/', 'number/umnosh', 'history/', 'history/people/',
+         'history/photos/', 'today/', 'today/prog_day/']
+    l2 = ['News', 'About company', 'Management', 'Number', 'Table umnosh', 'History', 'People', 'Photos', 'Today',
+          'Prog_day']
+    for i in range(0, len(l) ):
+        st2 += '<p><a href="' + st + l[i] + '">' + l2[i] + '</a></p>'
+
+    return HttpResponse('<h1>Main</h1>'+st2)
+///urls.py
+ path('', views.main,name="main"),
