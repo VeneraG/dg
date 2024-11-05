@@ -1,0 +1,26 @@
+3.
+///views.py
+def dayofweek(request):
+    days = ('pon', 'vt', 'sr', 'cht', 'pt', 'sub', 'vsk')
+    d = date.today().weekday()
+    return HttpResponse(days[d])
+///urls.py
+path('today/', views.dayofweek,name="dayofweek"),
+4.
+///views.py
+def umnosh(request):
+    table = ''
+    for i in range(1, 11):
+        for e in range(1, 11):
+            table += f"<p>{i} * {e} ={e * i}</p>"
+    return HttpResponse(table)
+
+///urls.py
+path('number/umnosh/', views.umnosh,name="umnosh"),
+5.
+///views.py
+def day_of_prog(request):
+    return HttpResponse(f"<h1> day of programmer in 2024 is 12 september</h1></p>")
+
+///urls.py
+path('today/prog_day/', views.day_of_prog,name="day_of_prog"),
