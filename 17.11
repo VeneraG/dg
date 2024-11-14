@@ -1,0 +1,90 @@
+////views.py
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
+citya = {'p': "ss", 'a': "aa", 1924: 'olimpic games', 1956: 'Film'}
+
+
+def main(request):
+    return HttpResponse('Russia')
+
+
+def history(request):
+    return HttpResponse('History')
+
+
+def cities(request):
+    return HttpResponse('city')
+
+
+def country_fact(request):
+    return HttpResponse('facts')
+
+
+def writers(request):
+    return HttpResponse(
+        '<a href="http://127.0.0.1:8000/writers/Shakespeare/">Шекспир</a> <a href="http://127.0.0.1:8000/writers/Shakespeare/sea/">Sea</a><p></p><a href="http://127.0.0.1:8000/writers/Hemingway/">Хемингуэй</a> <a href="http://127.0.0.1:8000/writers/Hemingway/sun/">Sun</a>')
+
+
+def books(request):
+    return HttpResponse('books')
+
+
+def hem(request):
+    return HttpResponse('hem')
+
+
+def shec(request):
+    return HttpResponse('shec')
+
+
+def categories(request, catid):
+    response= render_to_string('mysite/my.html')
+    if catid >= 11:
+        return wrong(request, catid)
+    else:
+        return HttpResponse(response)
+
+
+def wrong(request, catid):
+    return HttpResponse('Неверный адрес <a href="http://127.0.0.1:8000/books">Come back to books</a> <a '
+                        'href="http://127.0.0.1:8000/writers">Come back to writers</a>')
+
+
+def sea(request):
+    return HttpResponse('sea')
+
+
+def sun(request):
+    return HttpResponse('sun')
+
+
+def god(request):
+    if request.GET:
+        city = request.GET.get('city')
+        year = int(request.GET.get('year'))
+        return HttpResponse(citya[city]+citya[year])
+    else:
+        return HttpResponse('citya[city][year]')
+
+
+///urls.py
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('history/', views.history, name="history"),
+    path('facts/', views.country_fact, name="facts"),
+    path('cities/', views.cities, name="cities"),
+    path('aa/', views.main, name="country"),
+    path('books/', views.books, name="books"),
+    path('writers/', views.writers, name="writers"),
+    path('writers/Shakespeare/', views.shec, name="country"),
+    path('writers/Hemingway/', views.hem, name="country"),
+    path('books/<int:catid>/', views.categories,name="categories"),
+    path('writers/Shakespeare/sea/', views.sea,name="sea"),
+    path('writers/Hemingway/sun/', views.sun,name="sun"),
+    path('writers/<str:catid>/', views.wrong,name="wrong"),
+    path('', views.god,name="god"),
+
+
+]
