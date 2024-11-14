@@ -1,0 +1,142 @@
+///views.py
+
+language_dict = {'orig': """He's laughing with another girl
+And playing with another heart
+Placing high stakes making hearts ache
+He's loved in seven languages
+Diamond nights and ruby lights high in the sky
+Heaven help him when he falls
+Diamond life, lover boy
+We move in space with minimum waste and maximum joy
+City lights and business nights
+When you require streetcar desire for higher heights
+No place for beginners or sensitive hearts
+When sentiment is left to chance
+No place to be ending but somewhere to start
+No need to ask
+He's a smooth operator
+Smooth operator
+Smooth operator
+Smooth operator""",
+                 'fr': """Il rit avec une autre fille
+Et jouer avec un autre cœur
+Placer des enjeux élevés fait mal au cœur
+Il est aimé en sept langues
+Nuits de diamants et lumières de rubis haut dans le ciel
+Le Ciel l'aide quand il tombe
+La vie de diamant, garçon amoureux
+Nous nous déplaçons dans l'espace avec un minimum de déchets et un maximum de joie
+Lumières de la ville et soirées d'affaires
+Lorsque vous avez besoin d'un désir de tramway pour des hauteurs plus élevées
+Pas de place pour les débutants ou les cœurs sensibles
+Quand le sentiment est laissé au hasard
+Pas d'endroit pour finir mais un endroit pour commencer
+Pas besoin de demander
+C'est un opérateur en douceur
+Opérateur lisse
+Opérateur lisse
+Opérateur lisse""",
+                 'de': """Er lacht mit einem anderen Mädchen
+Und mit einem anderen Herzen spielen
+Hohe Einsätze setzen, die Herzen schmerzen lassen
+Er wird in sieben Sprachen geliebt
+Diamantnächte und Rubinlichter hoch am Himmel
+Der Himmel helfe ihm, wenn er fällt
+Diamantleben, Liebhaber Junge
+Wir bewegen uns mit minimalem Abfall und maximaler Freude im Weltraum
+Lichter der Stadt und Geschäftsabende
+Wenn Sie Straßenbahnwunsch nach höheren Höhen benötigen
+Kein Platz für Anfänger oder sensible Herzen
+Wenn Gefühle dem Zufall überlassen werden
+Kein Ort, an dem man enden kann, sondern irgendwo, an dem man anfangen kann
+Keine Notwendigkeit zu fragen
+Er ist ein reibungsloser Operator
+Reibungsloser Betrieb
+Reibungsloser Betrieb
+Reibungsloser Betrieb""",
+                 'es': """Se está riendo con otra chica
+Y jugando con otro corazón
+Colocar apuestas altas hace que duelan los corazones
+Él es amado en siete idiomas
+Noches de diamantes y luces de rubí en lo alto del cielo
+El Cielo lo ayude cuando caiga
+Vida de diamante, chico amante
+Nos movemos en el espacio con el mínimo desperdicio y la máxima alegría
+Luces de la ciudad y noches de negocios
+Cuando necesita un deseo de tranvía por alturas más altas
+No hay lugar para principiantes o corazones sensibles
+Cuando el sentimiento se deja al azar
+No hay un lugar para terminar, sino un lugar para comenzar
+No hay necesidad de preguntar
+Él es un operador suave
+Operador suave
+Operador suave
+Operador suave"""
+
+                 }
+
+
+def fav_song_in_dif_lang(request, catid):
+
+    lang_get = language_dict.get(catid)
+    data = {
+        'description_lang': lang_get
+    }
+    return render(request,'mysite/my.html', context=data)
+
+
+def fav_song(request):
+    response = language_dict.get('orig')
+    data = {
+        'description_lang': response
+    }
+    return render(request,'mysite/my.html', context=data)
+
+
+////my.html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Smooth operator </h1>
+    <pre>{{description_lang}}</pre>
+</body>
+</html>
+///urls.py
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.fav_song),
+    path('<str:catid>/', views.fav_song_in_dif_lang),
+
+]
+/////2
+///views.py
+language_dict = {'': "main",
+                 'renault': "renault",
+                 'honda': "honda",
+                 'toyota': 'toyota',
+
+                 }
+
+
+def fav_song_in_dif_lang(request, catid):
+    lang_get = language_dict.get(catid)
+    data = {
+        'description_lang': lang_get
+    }
+    return render(request, 'mysite/my.html', context=data)
+
+
+def fav_song(request):
+    response = language_dict.get('')
+    data = {
+        'description_lang': response
+    }
+    return render(request, 'mysite/my.html', context=data)
+
