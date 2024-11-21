@@ -140,3 +140,18 @@ def fav_song(request):
     }
     return render(request, 'mysite/my.html', context=data)
 
+
+
+/////2
+///views.py
+from django import forms
+from django.http import HttpResponse
+from datetime import *
+
+w={0:"pon",1:"vt",2:"sr",3:"cht",4:"pt",5:"sub",6:"vsk",}
+def day(request):
+    r = datetime.today()
+    return HttpResponse(w[r.weekday()])
+///urls.py
+
+path('', views.day),
