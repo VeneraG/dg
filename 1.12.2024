@@ -1,0 +1,61 @@
+1 zad ///views.py
+def users(request):
+    if request.method == "POST":
+        login = request.POST.get('login')
+        parol = request.POST.get('parol')
+        choice = request.POST.get('choice')
+        c = Admin.objects.values_list('login')
+        c2 = Admin.objects.values_list('parol')
+        c3 = Admin.objects.values_list('parol')
+        c4 = Admin.objects.values_list('login')
+
+        if (login not in str(c) and parol not in str(c2)) and (login not in str(c4) and parol not in str(c3)):
+            return HttpResponse('entry right parol or login')
+        else:
+            # if choice == 'client':
+            #
+            #     e = Customer(login=login, parol=parol)
+            #     e.save()
+            # else:
+            #     e = Admin(login=login, parol=parol)
+            #     e.save()
+
+            return HttpResponse('all right')
+    else:
+
+        customform = Parol()
+        template = loader.get_template("sports/parol.html")
+        context = get_context('Главная страница', {'form': customform})
+        return HttpResponse(template.render(context, request))
+///models.py
+from django.db import models
+
+
+class Customer(models.Model):
+    login = models.CharField(max_length=10)
+    parol = models.CharField('password', max_length=10)
+
+
+
+class Admin(models.Model):
+    login = models.CharField(max_length=10)
+    parol = models.CharField('password', max_length=10)
+///form.py
+from django import forms
+
+GEEKS_CHOICES = (
+    ("client", "client"),
+    ("admin", "admin"),
+
+)
+
+
+class PForm(forms.Form):
+    start = forms.IntegerField()
+    stop = forms.IntegerField()
+
+
+class Parol(forms.Form):
+    login = forms.CharField()
+    parol = forms.CharField(widget=forms.PasswordInput)
+    choice = forms.ChoiceField(choices=GEEKS_CHOICES)
